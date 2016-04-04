@@ -1,0 +1,7 @@
+.survey-hidden {
+  display: none;
+}
+
+.survey-visible {
+  display: block;
+}
