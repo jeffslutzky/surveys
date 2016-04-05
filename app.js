@@ -51,8 +51,11 @@ $(function() {
     };
     if (valid == true) {
       object.push({title: title, pointValue: points, description: description, questions: questions});
-      // clear form fields
-      debugger;
+      $("input[name='title']").val("");
+      $("input[name='points']").val("");
+      $("input[name='description']").val("");
+      // clear question fields
+      // refactor code
     };
 
   });
