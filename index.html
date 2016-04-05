@@ -14,17 +14,26 @@
 
 <div class="survey survey-hidden">
 
-<form>
-<p>Title
-<input type="text" name="title"></p>
-<p>Point value
-<input type="text" name="point-value"></p>
-<p>Description
-<input type="text" name="description"></p>
+  <form>
 
-<div class="add-question"><button type="button">Add a question</button></div>
+    <p>Title
+    <input type="text" name="title"></p>
+    <p>Point value
+    <input type="text" name="points"></p>
+    <p>Description
+    <input type="text" name="description"></p>
 
-</form>
+    <div class="question">
+    <p>Question <input type="text" name="question">
+    <span class="delete-question"><button type="button">delete</button></span>
+    </p>
+    </div>
+
+    <div><button class="add-question" type="button">Add a question</button></div>
+
+  </form>
+
+  <p><button class="submit" type="button">Submit survey</button></p>
 
 </div>
 

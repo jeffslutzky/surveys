@@ -5,7 +5,7 @@ $(function() {
   });
 
   $(".add-question").on("click", function(){
-    $(this).before("<div class='question'>\
+    $(this).parent().before("<div class='question'>\
     <p>Question <input type='text' name='question'> \
     <span class='delete-question'><button type='button'>delete</button></span>\
     </p>\
@@ -13,7 +13,17 @@ $(function() {
   });
 
   $(".survey").on("click", ".delete-question", function(){
-    $(this).parent().remove();
+    $(this).parent().parent().remove();
+  })
+
+  $(".submit").on("click", function(){
+    var title = $("input[name='title']").val();
+    var points = $("input[name='points']").val();
+    var description = $("input[name='description']").val();
+    $("input[name='question']").each(function(){
+      
+      debugger;
+    })
   })
 
 })
