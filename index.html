@@ -10,11 +10,23 @@
 <body>
 <p>With this tool, you can make surveys.</p>
 
-<button type="button">Start a survey</button>
+<p><button class="survey-button" type="button">Start a survey</button></p>
 
 <div class="survey survey-hidden">
 
-(survey goes here)
+<form>
+<p>Title
+<input type="text" name="title"></p>
+<p>Point value
+<input type="text" name="point-value"></p>
+<p>Description
+<input type="text" name="description"></p>
+
+<p><button class="question-button" type="button">Add a question</button></p>
+
+<p>Question
+<input type="text" name="question"></p>
+</form>
 
 </div>
 
