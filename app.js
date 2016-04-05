@@ -20,9 +20,9 @@ $(function() {
     var title = $("input[name='title']").val();
     var points = $("input[name='points']").val();
     var description = $("input[name='description']").val();
+    var questions = [];
     $("input[name='question']").each(function(){
-      
-      debugger;
+      questions.push($(this).val());
     })
   })
 
