@@ -18,31 +18,43 @@ $(function() {
 
   $(".submit").on("click", function(){
     $(".message").empty();
+    var valid = false;
     var object = [];
     var title = $("input[name='title']").val();
     var points = $("input[name='points']").val();
     var description = $("input[name='description']").val();
     if (title.length < 100) {
-      object.push({title: title});
+      valid = true;
     } else {
       $(".message").append("<p>Title must be less than 100 characters.</p>");
     };
     if ($.isNumeric(points) && points > 0) {
-      object.push({pointValue: points});
+      valid = true;
     } else {
       $(".message").append("<p>Point value must be a positive integer.</p>");
     };
     if (description.length < 500) {
-      object.push({description: description});
+      valid = true;
     } else {
       $(".message").append("<p>Description must be less than 500 characters.</p>");
     };
-    object.push({title: title, pointValue: points, description: description});
     var questions = [];
     $("input[name='question']").each(function(){
-      questions.push({title: $(this).val()});
+      if ($(this).val() !== "") {
+        questions.push({title: $(this).val()});
+      };
     });
-    object.push(questions);
+    if (questions.length) {
+      valid = true;
+    } else {
+      $(".message").append("<p>The survey must contain at least one question.</p>");
+    };
+    if (valid == true) {
+      object.push({title: title, pointValue: points, description: description, questions: questions});
+      // clear form fields
+      debugger;
+    };
+
   });
 
 
