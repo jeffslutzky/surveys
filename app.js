@@ -1,7 +1,10 @@
+"use strict";
+
 $(function() {
 
   $(".survey-button").on("click", function(){
     $(".survey").addClass("survey-visible").removeClass("survey-hidden");
+    $(".message").empty();
   });
 
   $(".add-question").on("click", function(){
@@ -18,25 +21,25 @@ $(function() {
 
   $(".submit").on("click", function(){
     $(".message").empty();
-    var valid = false;
-    var object = [];
+    var valid = 0;
+    var object = new Object();
     var title = $("input[name='title']").val();
-    var points = $("input[name='points']").val();
+    var pointValue = $("input[name='pointValue']").val();
     var description = $("input[name='description']").val();
-    if (title.length < 100) {
-      valid = true;
+    if (title.length < 100 && title.length > 0) {
+      valid++;
     } else {
-      $(".message").append("<p>Title must be less than 100 characters.</p>");
+      $(".message").append("<p>There must be a title of fewer than 100 characters.</p>");
     };
-    if ($.isNumeric(points) && points > 0) {
-      valid = true;
+    if ($.isNumeric(pointValue) && pointValue > 0) {
+      valid++;
     } else {
       $(".message").append("<p>Point value must be a positive integer.</p>");
     };
-    if (description.length < 500) {
-      valid = true;
+    if (description.length < 500 && description.length > 0) {
+      valid++;
     } else {
-      $(".message").append("<p>Description must be less than 500 characters.</p>");
+      $(".message").append("<p>There must be a description of fewer than 500 characters.</p>");
     };
     var questions = [];
     $("input[name='question']").each(function(){
@@ -45,17 +48,26 @@ $(function() {
       };
     });
     if (questions.length) {
-      valid = true;
+      valid++;
     } else {
       $(".message").append("<p>The survey must contain at least one question.</p>");
     };
-    if (valid == true) {
-      object.push({title: title, pointValue: points, description: description, questions: questions});
+    if (valid === 4) {
+      object.title = title;
+      object.pointValue = pointValue;
+      object.description = description;
+      object.questions = questions;
+      $(".message").append("<p>Survey submitted succesfully!</p>" + "<p>" + JSON.stringify(object) + "</p>");
       $("input[name='title']").val("");
-      $("input[name='points']").val("");
+      $("input[name='pointValue']").val("");
       $("input[name='description']").val("");
-      // clear question fields
-      // refactor code
+      $(".question").remove();
+      $(".add-question").before("<div class='question'>\
+    <p>Question <input type='text' name='question'> \
+    <span class='delete-question'><button type='button'>delete</button></span>\
+    </p>\
+    </div>");
+      $(".survey").removeClass("survey-visible").addClass("survey-hidden");
     };
 
   });
