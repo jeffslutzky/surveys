@@ -22,40 +22,48 @@ $(function() {
 
   $(".submit").on("click", function(){
     $(".message").empty();
+
     var validTitle = false;
     var validPoints = false;
     var validDescription = false;
     var validQuestions = false;
+
     var object = new Object();
+
     var title = $("input[name='title']").val();
     var pointValue = $("input[name='pointValue']").val();
     var description = $("input[name='description']").val();
     var questions = [];
 
+    // validate title
     if (title.length < 100 && title.length > 0) {
       validTitle = true;
     } else {
       $(".message").append("<p>There must be a title of fewer than 100 characters.</p>");
     };
 
+    // validate points
     if ($.isNumeric(pointValue) && pointValue > 0) {
       validPoints = true;
     } else {
       $(".message").append("<p>Point value must be a positive integer.</p>");
     };
 
+    // validate description
     if (description.length < 500 && description.length > 0) {
       validDescription = true;
     } else {
       $(".message").append("<p>There must be a description of fewer than 500 characters.</p>");
     };
 
+    // collect non-empty questions into array
     $("input[name='question']").each(function(){
       if ($(this).val() !== "") {
         questions.push({title: $(this).val()});
       };
     });
 
+    // validate array of questions
     if (questions.length) {
       validQuestions = true;
     } else {
@@ -63,7 +71,7 @@ $(function() {
     };
 
     if (validTitle && validPoints && validDescription && validQuestions) {
-      makeObject(object, title, pointValue, description, questions);
+      createObject(object, title, pointValue, description, questions);
       reset();
     };
   });
@@ -74,7 +82,7 @@ var showSurvey = function(){
   $(".message").empty();
 }
 
-var makeObject = function(object, title, pointValue, description, questions){
+var createObject = function(object, title, pointValue, description, questions){
   object.title = title;
   object.pointValue = pointValue;
   object.description = description;
