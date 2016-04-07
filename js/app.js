@@ -50,7 +50,7 @@ $(function() {
 
     // create and display JSON object
     if (survey.validate()) {
-      $(".message").append("<p>Survey submitted succesfully!</p>" + "<p>" + JSON.stringify(survey) + "</p>");
+      $(".message").append("<p>Survey submitted successfully!</p>" + "<p>" + JSON.stringify(survey) + "</p>");
       reset();
     };
   });
