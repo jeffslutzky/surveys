@@ -28,8 +28,6 @@ $(function() {
     var validDescription = false;
     var validQuestions = false;
 
-    var object = new Object();
-
     var title = $("input[name='title']").val();
     var pointValue = $("input[name='pointValue']").val();
     var description = $("input[name='description']").val();
@@ -70,8 +68,10 @@ $(function() {
       $(".message").append("<p>The survey must contain at least one question.</p>");
     };
 
+    // create and show JSONobject
     if (validTitle && validPoints && validDescription && validQuestions) {
-      createObject(object, title, pointValue, description, questions);
+      var survey = new Survey(title, pointValue, description, questions);
+      $(".message").append("<p>Survey submitted succesfully!</p>" + "<p>" + JSON.stringify(survey) + "</p>");
       reset();
     };
   });
@@ -82,12 +82,11 @@ var showSurvey = function(){
   $(".message").empty();
 }
 
-var createObject = function(object, title, pointValue, description, questions){
-  object.title = title;
-  object.pointValue = pointValue;
-  object.description = description;
-  object.questions = questions;
-  $(".message").append("<p>Survey submitted succesfully!</p>" + "<p>" + JSON.stringify(object) + "</p>");
+var Survey = function(title, pointValue, description, questions){
+  this.title = title;
+  this.pointValue = pointValue;
+  this.description = description;
+  this.questions = questions;
 };
 
 var reset = function(){
