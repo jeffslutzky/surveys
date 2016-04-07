@@ -22,55 +22,27 @@ $(function() {
 
   $(".submit").on("click", function(){
     $(".message").empty();
+    var survey = new surveyController();
 
-    var validTitle = false;
-    var validPoints = false;
-    var validDescription = false;
-    var validQuestions = false;
-
-    var title = $("input[name='title']").val();
-    var pointValue = $("input[name='pointValue']").val();
-    var description = $("input[name='description']").val();
-    var questions = [];
-
-    // validate title
-    if (title.length < 100 && title.length > 0) {
-      validTitle = true;
-    } else {
+    if (!survey.validTitle()) {
       $(".message").append("<p>There must be a title of fewer than 100 characters.</p>");
     };
 
-    // validate points
-    if ($.isNumeric(pointValue) && pointValue > 0) {
-      validPoints = true;
-    } else {
+    if (!survey.validPointValue()) {
       $(".message").append("<p>Point value must be a positive integer.</p>");
     };
 
-    // validate description
-    if (description.length < 500 && description.length > 0) {
-      validDescription = true;
-    } else {
+    if (!survey.validDescription()) {
       $(".message").append("<p>There must be a description of fewer than 500 characters.</p>");
     };
 
-    // collect non-empty questions into array
-    $("input[name='question']").each(function(){
-      if ($(this).val() !== "") {
-        questions.push({title: $(this).val()});
-      };
-    });
-
-    // validate array of questions
-    if (questions.length) {
-      validQuestions = true;
-    } else {
+    if (!survey.validQuestions()) {
       $(".message").append("<p>The survey must contain at least one question.</p>");
     };
 
-    // create and show JSONobject
-    if (validTitle && validPoints && validDescription && validQuestions) {
-      var survey = new Survey(title, pointValue, description, questions);
+    // create and show JSON object
+    if (survey.validate()) {
+      debugger;
       $(".message").append("<p>Survey submitted succesfully!</p>" + "<p>" + JSON.stringify(survey) + "</p>");
       reset();
     };
@@ -81,13 +53,6 @@ var showSurvey = function(){
   $(".survey").addClass("survey-visible").removeClass("survey-hidden");
   $(".message").empty();
 }
-
-var Survey = function(title, pointValue, description, questions){
-  this.title = title;
-  this.pointValue = pointValue;
-  this.description = description;
-  this.questions = questions;
-};
 
 var reset = function(){
   $("input[name='title']").val("");
